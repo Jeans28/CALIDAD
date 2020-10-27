@@ -9,7 +9,7 @@ import Vistas.Consultas.*;
 import Vistas.Mantenimiento.MantClientes;
 import Vistas.Mantenimiento.MantEmpleados;
 import Vistas.Mantenimiento.MantProductos;
-import Vistas.Mantenimiento.MantProveedores;
+import Vistas.Mantenimiento.MantProovedor;
 import Vistas.Mantenimiento.MantVentas;
 import java.awt.Image;
 import javax.swing.*;
@@ -255,7 +255,7 @@ public class PrincipalAdmin extends javax.swing.JFrame {
 
     private void itemProveedoresActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemProveedoresActionPerformed
         // TODO add your handling code here:
-        MantProveedores mantproveedores = new MantProveedores();
+        MantProovedor mantproveedores = new MantProovedor();
         mantproveedores.setTitle("Mantenimiento de los Proveedores");
         mantproveedores.setVisible(true);
     }//GEN-LAST:event_itemProveedoresActionPerformed
