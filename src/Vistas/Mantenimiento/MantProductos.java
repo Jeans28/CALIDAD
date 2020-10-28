@@ -8,7 +8,7 @@ package Vistas.Mantenimiento;
 import DAO.DAOProducto;
 import DAO.DAOProveedor;
 import Entidades.Producto;
-import Entidades.Categoria;
+import Entidades.Proveedor;
 import java.util.*;
 import javax.swing.table.DefaultTableModel;
 
@@ -249,7 +249,7 @@ public final class MantProductos extends javax.swing.JFrame {
         double precio = Double.parseDouble(txtPrecioUni.getText());
         int Stock = Integer.parseInt(txtStock.getText());
         String nomprove = cbxProveedor.getSelectedItem().toString();
-        Categoria prove =  daoP.BuscarporNombre(nomprove);
+        Proveedor prove =  daoP.BuscarporNombre(nomprove);
         
         Producto p = new Producto(0, des, precio, Stock, prove);// no importa el idcliente
         dao.Insertar(p);
@@ -352,10 +352,10 @@ public final class MantProductos extends javax.swing.JFrame {
     }
     private void CargarProveedores(){
         DAOProveedor dao = new DAOProveedor();
-        List<Categoria> list = dao.Listar();
+        List<Proveedor> list = dao.Listar();
         Iterator it = list.iterator();
         while(it.hasNext()){
-            Categoria p = (Categoria) it.next();
+            Proveedor p = (Proveedor) it.next();
             this.cbxProveedor.addItem(p.getNombre());
         }
     }

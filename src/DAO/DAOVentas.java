@@ -5,12 +5,11 @@
  */
 package DAO;
 
-import Entidades.Cliente;
+
 import Entidades.DET_Venta;
 import Entidades.Usuario;
 import Entidades.Venta;
 import Utilidades.Conexion;
-import DAO.DAOCliente;
 import DAO.DAOEmpleado;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -57,8 +56,8 @@ public class DAOVentas extends Conexion implements ICRUDS<Venta>{
     @Override
     public void Insertar(Venta objetoT) {
         try {
-            sql="INSERT INTO VENTA(precioT,fechaE,idCliente,codEmpleado) VALUES ("+objetoT.getPrecioT()+",'"+objetoT.getFechaE()+"',"
-                    +objetoT.getCliente().getIdCliente()+","+objetoT.getEmpleado().getCodEmpleado()+")";      //Inserta la venta
+            sql="INSERT INTO VENTA(usuario_id,observaciones,fecha,total) VALUES ("+objetoT.getEmpleado().getIdusuario()+",'"+objetoT.getObsventa()+"',"
+                    +objetoT.getPrecioT()+")";      //Inserta la venta
             conex = getConexion();
             pstm = conex.prepareStatement(sql);
             pstm.executeUpdate();
@@ -68,8 +67,8 @@ public class DAOVentas extends Conexion implements ICRUDS<Venta>{
             while(it.hasNext()){
                 DET_Venta tmp = (DET_Venta) it.next();
                 conex.close();
-                sql="INSERT INTO DET_VENTA(NumVenta,codProducto,cantidad,precioN) VALUES ("+ VerUltimoNumVenta() +
-                        ","+tmp.getP().getCodProducto()+","+tmp.getCantidad()+","+tmp.getPrecioN()+")";
+                sql="INSERT INTO DETALLE_VENTA(iddetalle_venta,venta_id,producto_id,,cantidad,subtotal) VALUES ("+ VerUltimoNumVenta() +
+                        ","+tmp.getV().getCodventa()+","+tmp.getP().getCodProducto()+","+tmp.getCantidad()+","+tmp.getPrecioN()+")";
                 conex=getConexion();
                 pstm=conex.prepareStatement(sql);
                 pstm.executeUpdate();
@@ -96,11 +95,11 @@ public class DAOVentas extends Conexion implements ICRUDS<Venta>{
         try {
             conex=getConexion();
             
-            sql="DELETE FROM DET_VENTA WHERE NumVenta="+ID;
+            sql="DELETE FROM DETALLE_VENTA WHERE venta_id="+ID;
             pstm=conex.prepareStatement(sql);
             pstm.executeUpdate();
             
-            sql="DELETE FROM VENTA WHERE NumVenta="+ID;
+            sql="DELETE FROM VENTA WHERE idventa="+ID;
             pstm=conex.prepareStatement(sql);
             pstm.executeUpdate();
             
@@ -121,7 +120,7 @@ public class DAOVentas extends Conexion implements ICRUDS<Venta>{
         DAOCliente dao_c = new DAOCliente();
         DAOEmpleado dao_e = new DAOEmpleado();
         try {
-            sql = "SELECT * FROM VENTA WHERE NumVenta="+ID;
+            sql = "SELECT * FROM VENTA WHERE idventa="+ID;
             conex=getConexion();
             pstm=conex.prepareStatement(sql);
             rsset=pstm.executeQuery();
@@ -137,7 +136,6 @@ public class DAOVentas extends Conexion implements ICRUDS<Venta>{
                 ne = dao_e.BuscarporID(rsset.getInt(5));
                 
                 List<DET_Venta> compras = Ver_DET_VENTAS(numventa);
-                
                 ven = new Venta(numventa, fechaE, compras, nc, ne);                
             }
             return ven;
@@ -203,7 +201,7 @@ public class DAOVentas extends Conexion implements ICRUDS<Venta>{
             ResultSet set = null;
             try {
                 List<DET_Venta> lista = new ArrayList<>();
-                String q = "SELECT * FROM DET_VENTA WHERE NumVenta="+NUMVENTA;
+                String q = "SELECT * FROM DETALLE_VENTA WHERE IDDETALLE_VENTA="+NUMVENTA;
                 DAOProducto daoP = new DAOProducto();
                 
                 ps = cn.prepareStatement(q);

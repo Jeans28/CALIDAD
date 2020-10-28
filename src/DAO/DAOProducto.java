@@ -6,7 +6,7 @@
 package DAO;
 
 import Entidades.Producto;
-import Entidades.Categoria;
+import Entidades.Proveedor;
 import Utilidades.Conexion;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -23,7 +23,7 @@ public class DAOProducto extends Conexion implements ICRUDS<Producto>{
     private String sql ;
     @Override
     public void Insertar(Producto objetoT) {
-        String des=objetoT.getDescripcion();
+        String des=objetoT.getProducto();
         double precio = objetoT.getPrecioUni();
         int stck = objetoT.getStock();
         int idProveedor = objetoT.getProveedor().getIdProveedor();
@@ -108,7 +108,7 @@ public class DAOProducto extends Conexion implements ICRUDS<Producto>{
             String des=rsset.getString(2);
             double precio = rsset.getDouble(3);
             int stck = rsset.getInt(4);
-            Categoria p = new Categoria(rsset.getInt(5), rsset.getString(7));
+            Proveedor p = new Proveedor(rsset.getInt(5), rsset.getString(7));
             
             Producto retorno = new Producto(ID,des,precio,stck,p);
             return retorno;
@@ -137,7 +137,7 @@ public class DAOProducto extends Conexion implements ICRUDS<Producto>{
             
             while(rsset.next()){
                 Producto n = new Producto (rsset.getInt(1),rsset.getString(2), rsset.getDouble(3), rsset.getInt(4),
-                        new Categoria(rsset.getInt(5), rsset.getString(7)));
+                        new Proveedor(rsset.getInt(5), rsset.getString(7)));
                 lista.add(n);
             }
             return lista;
@@ -165,7 +165,7 @@ public class DAOProducto extends Conexion implements ICRUDS<Producto>{
             rsset.next();
             
             Producto retorno = new Producto(rsset.getInt(1),rsset.getString(2), rsset.getDouble(3), rsset.getInt(4),
-                new Categoria(rsset.getInt(5), rsset.getString(7)));
+                new Proveedor(rsset.getInt(5), rsset.getString(7)));
             
             return retorno;
         } catch (SQLException | ClassNotFoundException ex) {

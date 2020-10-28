@@ -7,7 +7,7 @@ package Vistas.Consultas;
 
 
 import DAO.DAOProveedor;
-import Entidades.Categoria;
+import Entidades.Proveedor;
 import Utilidades.Exporter;
 import java.io.File;
 import java.util.*;
@@ -131,7 +131,7 @@ public class ConsultaProovedores extends javax.swing.JFrame {
                 return false;
             }
         };
-        List<Categoria> list = dao.Listar();
+        List<Proveedor> list = dao.Listar();
         
         modelo.setRowCount(list.size());
         modelo.addColumn("ID");
@@ -140,7 +140,7 @@ public class ConsultaProovedores extends javax.swing.JFrame {
         Iterator it = list.iterator();
         int row = 0;
         while(it.hasNext()){
-            Categoria tmp = (Categoria) it.next();
+            Proveedor tmp = (Proveedor) it.next();
             modelo.setValueAt(tmp.getIdProveedor(), row, 0);
             modelo.setValueAt(tmp.getNombre(), row, 1);
             row++;

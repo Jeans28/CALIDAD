@@ -5,13 +5,13 @@ public class Producto {
     private String producto;
     private double precioUni;
     private int Stock;
-    private Categoria proveedor;
+    private Proveedor proveedor;
     private String fecha;
 
     public Producto() {
     }
 
-    public Producto(int codProducto, String producto, double precioUni, int Stock, Categoria proveedor, String fecha) {
+    public Producto(int codProducto, String producto, double precioUni, int Stock, Proveedor proveedor, String fecha) {
         this.codProducto = codProducto;
         this.producto = producto;
         this.precioUni = precioUni;
@@ -52,11 +52,11 @@ public class Producto {
         this.Stock = Stock;
     }
 
-    public Categoria getProveedor() {
+    public Proveedor getProveedor() {
         return proveedor;
     }
 
-    public void setProveedor(Categoria proveedor) {
+    public void setProveedor(Proveedor proveedor) {
         this.proveedor = proveedor;
     }
 
@@ -70,7 +70,7 @@ public class Producto {
     
     public void verDatos(){
         System.out.println("codProducto"+codProducto+"  Precio:"+precioUni+"Stock :"+Stock
-                + "id Proveedor:"+proveedor.getIdCategoria()+"-"+proveedor.getCategoria());
+                + "id Proveedor:"+proveedor.getIdProveedor()+"-"+proveedor.getProveedor());
     }
     
 }
